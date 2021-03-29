@@ -93,7 +93,7 @@ def calculon(clients):
 			if(achievmentCounter>=MAX_GOAL):
 				print("Mission Completed")
 				notCompleted=0
-			TESTVAL=TESTVAL+20
+			#TESTVAL=TESTVAL+20
 			client.setAchvievmentYakslapper()
 		print("current status is: %d"% (achievmentCounter) )
 		time.sleep(10)	
@@ -150,8 +150,8 @@ def menu():
 				#menuInputAPIKey = input ("Insert API Key: ")
 				#menuInputUserName = input ("Insert Username : ")
 				#debugging
-				clients.append( gwClient ( 1,'F4D84FF4-CB06-EA46-8547-B9BD3459B93F618E5D07-0F20-48A4-A525-AA41CB029463','david') )
-				clients.append( gwClient ( 1,'E53C7004-62EA-FA44-9B8D-BCBA01EB7A13C3BEEDEF-54F9-4E5F-B2E0-6DFA2F64B711','ivan') )
+				clients.append( gwClient ( 100,'F4D84FF4-CB06-EA46-8547-B9BD3459B93F618E5D07-0F20-48A4-A525-AA41CB029463','david') )
+				clients.append( gwClient ( 100,'E53C7004-62EA-FA44-9B8D-BCBA01EB7A13C3BEEDEF-54F9-4E5F-B2E0-6DFA2F64B711','ivan') )
 				#debugging
 				#clients.append( gwClient(MAX_GOAL,menuInputAPIKey,menuInputUserName) )
 				for client in clients:
