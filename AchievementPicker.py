@@ -93,7 +93,7 @@ def calculon(clients):
 			if(achievmentCounter>=MAX_GOAL):
 				print("Mission Completed")
 				notCompleted=0
-			#TESTVAL=TESTVAL+20
+			TESTVAL=TESTVAL+20
 			client.setAchvievmentYakslapper()
 		print("current status is: %d"% (achievmentCounter) )
 		time.sleep(10)	
@@ -113,7 +113,7 @@ def menu():
 			print("3. disconnect API Key")
 			print("4. show stats ")
 			print("5. Choose 5 to go to another menu")
-			print("6. run achievment picker")
+			print("6. run achievment picker (yacksplapper)")
 
 			choice = input ("Please make a choice: ")
 
@@ -132,13 +132,15 @@ def menu():
 				counter=0
 				print("3. disconnect API Key")
 				#TODO disconnect ; remove API key from list
+				#show currently api connections 
 				for client in clients:
-					print("[%d] %s" % (counter,client.username))
-					print("under construction :> \n")
+					print("--> [%d] %s" % (counter,client.username))
+					#print("under construction :> \n")
 					counter=counter+1
-				#menuRemoveAPIKey = int(input ("Insert APIKEY to remove APIKEY: "))
-				#int(menuRemoveAPIKey)
-				#clients.remove(client[menuRemoveAPIKey])
+				menuRemoveAPIKey = int(input ("Insert Number to remove APIKEY: "))
+				if(menuRemoveAPIKey >= 0 and menuRemoveAPIKey <= counter-1):
+					print("client %s deleted" % (clients[menuRemoveAPIKey].username) )	
+					del clients[menuRemoveAPIKey]
 			elif choice == "2":
 				print("2. show connected API Keys")
 				for client in clients:
@@ -162,6 +164,10 @@ def menu():
 
 			else:
 				print("I don't understand your choice.")
+
+#TODO Checkinput
+#def checkInput():
+	
 
 def main():
 
