@@ -4,6 +4,7 @@
 from gw2api import GuildWars2Client
 #import GuildWars2Client
 import time
+import re
 
 global MAX_GOAL
 MAX_GOAL=100
@@ -68,26 +69,26 @@ class gwClient:
 		print("Current Value is %s" %(self.current))
 		print("Desired value is %s" %(self.clientGoal))
 
-#def menu():
-
 def calculon(clients):
+	# Count current results from all API KEYS
 	achievmentCounter=0
 	notCompleted=1
+	#debug value Testval 
 	TESTVAL=800
 	while(notCompleted):
-
 		for client in clients:
 			client.setAchvievmentYakslapper()
 			#overview
 			print("User %s: current stats for achievment %s (id: %d) are %d" %  (client.username, client.name_selected_achievment['name'],int(client.name_selected_achievment['id']),int(client.current)) )
-			
 			#debugging
-			#or client in clients:
-			#print("User %s: current stats for achievment %s (id: %d) are %d" %  (client.username, client.name_selected_achievment['name'],int(client.name_selected_achievment['id']),int(client.current)) )
-			#if(client.initValue<TESTVAL):
-			
+				#for client in clients:
+				#print("User %s: current stats for achievment %s (id: %d) are %d" %  (client.username, client.name_selected_achievment['name'],int(client.name_selected_achievment['id']),int(client.current)) )
+				#if(client.initValue<TESTVAL):
 			#check the clientX.current value is incremented
 			#if the value incremented add +1 to counter counter
+			#
+			# Compare initValue + current achievmentCounter with current value from API KEY
+			# if 
 			if(client.initValue+achievmentCounter<client.current):
 				achievmentCounter=achievmentCounter+1
 			if(achievmentCounter>=MAX_GOAL):
@@ -106,6 +107,7 @@ def menu():
 	clients=[]
 	while(True):
 		choice ='0'
+		RE="[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{20}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}"
 		while choice =='0':
 			print("Main Choice: Choose 1 of 5 choices")
 			print("1. Connect new API Key")
@@ -137,6 +139,7 @@ def menu():
 					print("--> [%d] %s" % (counter,client.username))
 					#print("under construction :> \n")
 					counter=counter+1
+				#select and remove API KEY
 				menuRemoveAPIKey = int(input ("Insert Number to remove APIKEY: "))
 				if(menuRemoveAPIKey >= 0 and menuRemoveAPIKey <= counter-1):
 					print("client %s deleted" % (clients[menuRemoveAPIKey].username) )	
@@ -144,18 +147,21 @@ def menu():
 			elif choice == "2":
 				print("2. show connected API Keys")
 				for client in clients:
-					print (client.client.api_key)
-					print()		
+					print (client.client.api_key)	
 			elif choice == "1":
 				print("Connect new API Key")
-				
-				#menuInputAPIKey = input ("Insert API Key: ")
-				#menuInputUserName = input ("Insert Username : ")
+
+				menuInputAPIKey = input ("Insert API Key: ")
+				menuInputUserName = input ("Insert Username : ")
+				if not (re.match(RE,menuInputAPIKey )):
+					print("ERROR with API KEY")
+					break
+
 				#debugging
-				clients.append( gwClient ( 100,'F4D84FF4-CB06-EA46-8547-B9BD3459B93F618E5D07-0F20-48A4-A525-AA41CB029463','david') )
-				clients.append( gwClient ( 100,'E53C7004-62EA-FA44-9B8D-BCBA01EB7A13C3BEEDEF-54F9-4E5F-B2E0-6DFA2F64B711','ivan') )
+					#clients.append( gwClient ( 100,'F4D84FF4-CB06-EA46-8547-B9BD3459B93F618E5D07-0F20-48A4-A525-AA41CB029463','david') )
+					#clients.append( gwClient ( 100,'E53C7004-62EA-FA44-9B8D-BCBA01EB7A13C3BEEDEF-54F9-4E5F-B2E0-6DFA2F64B711','ivan') )
 				#debugging
-				#clients.append( gwClient(MAX_GOAL,menuInputAPIKey,menuInputUserName) )
+				clients.append( gwClient(MAX_GOAL,menuInputAPIKey,menuInputUserName) )
 				for client in clients:
 					client.APIConnect()
 					client.setAchvievmentYakslapper()
@@ -166,8 +172,9 @@ def menu():
 				print("I don't understand your choice.")
 
 #TODO Checkinput
-#def checkInput():
-	
+def checkInput():
+	menuRemoveAPIKey = int(input ("Insert Number to remove APIKEY: "))
+	return input	
 
 def main():
 
